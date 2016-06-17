@@ -1,0 +1,8 @@
+build_script:
+  - msbuild Projects\Win32\VC8\xerces-all\xerces-all.sln  /t:XercesLib /p:Configuration=Release;Platform=Win32
+  - msbuild Projects\Win32\VC8\xerces-all\xerces-all.sln  /t:XercesLib /p:Configuration=Release;Platform=x64
+
+artifacts:
+  - path: "**/*.dll"
+  - path: "**/*.pdb"
+  - path: "**/*.lib"
