@@ -1,6 +1,11 @@
 build_script:
   - msbuild Projects\Win32\VC8\xerces-all\xerces-all.sln  /t:XercesLib /p:Configuration=Release;Platform=Win32
   - msbuild Projects\Win32\VC8\xerces-all\xerces-all.sln  /t:XercesLib /p:Configuration=Release;Platform=x64
+  - curl -O https://raw.githubusercontent.com/ksmyth/GitHub-Source-Indexer/master/github-sourceindexer.ps1
+  - >-
+    for /f "usebackq" %%x in (`git rev-parse HEAD`) do set HEAD=%%x
+  - >-
+    powershell -ExecutionPolicy unrestricted .\github-sourceindexer.ps1 -userId "ksmyth" -repository "xerces-c" -symbolsFolder "%CD%" -branch %HEAD% -sourcesRoot "%CD%" -verbose -dbgToolsPath "'C:\Program Files (x86)\Windows Kits\10\Debuggers\x64'" -ignoreUnknown -verifyLocalRepo
 
 artifacts:
   - path: "**/*.dll"
